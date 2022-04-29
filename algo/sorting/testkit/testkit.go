@@ -3,10 +3,13 @@ package testkit
 import (
 	"math/rand"
 	"sort"
+	"sync"
 	"time"
 )
 
 const maxNumber = 100
+
+var once sync.Once
 
 type Kit struct {
 	N    []int
@@ -19,7 +22,9 @@ func GetRandomKit(size int) Kit {
 		Want: make([]int, size),
 	}
 
-	rand.Seed(time.Now().Unix())
+	once.Do(func() {
+		rand.Seed(time.Now().Unix())
+	})
 
 	for i := 0; i < size; i++ {
 		n := rand.Intn(maxNumber)
