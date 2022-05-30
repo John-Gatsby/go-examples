@@ -9,3 +9,7 @@ func BubbleSort(a []int) {
 		}
 	}
 }
+
+func QuickSort(a []int) {
+
+}

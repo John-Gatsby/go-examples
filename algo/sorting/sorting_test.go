@@ -43,3 +43,24 @@ func BenchmarkBubbleSort(b *testing.B) {
 		b.StopTimer()
 	}
 }
+
+func TestQuickSort(t *testing.T) {
+	data := ints
+	QuickSort(data[:])
+	if !isSorted(data[:]) {
+		t.Errorf("sorted %v", ints)
+		t.Errorf("   got %v", data)
+	}
+}
+
+func BenchmarkQuickSort(b *testing.B) {
+	b.StopTimer()
+	unsorted := getUnsorted()
+	data := make([]int, len(unsorted))
+	for i := 0; i < b.N; i++ {
+		copy(data, unsorted)
+		b.StartTimer()
+		QuickSort(data)
+		b.StopTimer()
+	}
+}
