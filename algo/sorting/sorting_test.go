@@ -1,52 +1,45 @@
 package sorting
 
 import (
-	"math/rand"
-	"sort"
-	"sync"
 	"testing"
-	"time"
 )
 
-type kit struct {
-	random Array
-	sorted Array
-}
+var ints = [...]int{74, 59, 238, -784, 9845, 959, 905, 0, 0, 42, 7586, -5467984, 7586}
 
-var once sync.Once
-
-func getKit() kit {
-	kit := kit{}
-
-	once.Do(func() {
-		rand.Seed(time.Now().Unix())
-	})
-
-	for i := 0; i < arrSize; i++ {
-		n := rand.Intn(maxNumber)
-		kit.random[i] = n
-		kit.sorted[i] = n
+func getUnsorted() []int {
+	unsorted := make([]int, 1<<10)
+	for i := range unsorted {
+		unsorted[i] = i ^ 0x2cc
 	}
-
-	sort.Ints(kit.sorted[:])
-
-	return kit
+	return unsorted
 }
 
-func TestBubble(t *testing.T) {
-	kit := getKit()
-	sorted := Bubble(kit.random)
-	if sorted != kit.sorted {
-		t.Errorf("error sorting Bubble:\n should be: %v\n got: %v", kit.sorted, sorted)
-	} else {
-		t.Logf("Bubble:\n should be: %v\n got: %v", kit.sorted, sorted)
+func isSorted(a []int) bool {
+	for i := 0; i < len(a)-1; i++ {
+		if a[i] > a[i+1] {
+			return false
+		}
+	}
+	return true
+}
+
+func TestBubbleSort(t *testing.T) {
+	data := ints
+	BubbleSort(data[:])
+	if !isSorted(data[:]) {
+		t.Errorf("sorted %v", ints)
+		t.Errorf("   got %v", data)
 	}
 }
 
-func BenchmarkBubble(b *testing.B) {
-	kit := getKit()
-	b.ResetTimer()
+func BenchmarkBubbleSort(b *testing.B) {
+	b.StopTimer()
+	unsorted := getUnsorted()
+	data := make([]int, len(unsorted))
 	for i := 0; i < b.N; i++ {
-		Bubble(kit.random)
+		copy(data, unsorted)
+		b.StartTimer()
+		BubbleSort(data)
+		b.StopTimer()
 	}
 }
