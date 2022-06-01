@@ -11,5 +11,33 @@ func BubbleSort(a []int) {
 }
 
 func QuickSort(a []int) {
+	left := 0
+	right := len(a) - 1
+	pivot := a[len(a)>>1]
 
+	for {
+		for ; a[left] < pivot; left++ {
+		}
+		for ; a[right] > pivot; right-- {
+		}
+
+		if left > right {
+			break
+		}
+
+		a[left], a[right] = a[right], a[left]
+		left++
+		right--
+
+		if left > right {
+			break
+		}
+	}
+
+	if right > 0 {
+		QuickSort(a[:right+1])
+	}
+	if left < len(a) {
+		QuickSort(a[left:])
+	}
 }
