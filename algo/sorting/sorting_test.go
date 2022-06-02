@@ -23,44 +23,38 @@ func isSorted(a []int) bool {
 	return true
 }
 
-func TestBubbleSort(t *testing.T) {
+func test(t *testing.T, sort func([]int)) {
 	data := ints
-	BubbleSort(data[:])
+	sort(data[:])
 	if !isSorted(data[:]) {
 		t.Errorf("sorted %v", ints)
 		t.Errorf("   got %v", data)
 	}
+}
+
+func bench(b *testing.B, sort func([]int)) {
+	b.StopTimer()
+	unsorted := getUnsorted()
+	data := make([]int, len(unsorted))
+	for i := 0; i < b.N; i++ {
+		copy(data, unsorted)
+		b.StartTimer()
+		sort(data)
+		b.StopTimer()
+	}
+}
+
+func TestBubbleSort(t *testing.T) {
+	test(t, BubbleSort)
 }
 
 func BenchmarkBubbleSort(b *testing.B) {
-	b.StopTimer()
-	unsorted := getUnsorted()
-	data := make([]int, len(unsorted))
-	for i := 0; i < b.N; i++ {
-		copy(data, unsorted)
-		b.StartTimer()
-		BubbleSort(data)
-		b.StopTimer()
-	}
+	bench(b, BubbleSort)
 }
-
 func TestQuickSort(t *testing.T) {
-	data := ints
-	QuickSort(data[:])
-	if !isSorted(data[:]) {
-		t.Errorf("sorted %v", ints)
-		t.Errorf("   got %v", data)
-	}
+	test(t, QuickSort)
 }
 
 func BenchmarkQuickSort(b *testing.B) {
-	b.StopTimer()
-	unsorted := getUnsorted()
-	data := make([]int, len(unsorted))
-	for i := 0; i < b.N; i++ {
-		copy(data, unsorted)
-		b.StartTimer()
-		QuickSort(data)
-		b.StopTimer()
-	}
+	bench(b, QuickSort)
 }
