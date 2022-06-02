@@ -51,6 +51,15 @@ func TestBubbleSort(t *testing.T) {
 func BenchmarkBubbleSort(b *testing.B) {
 	bench(b, BubbleSort)
 }
+
+func TestShakerSort(t *testing.T) {
+	test(t, ShakerSort)
+}
+
+func BenchmarkShakerSort(b *testing.B) {
+	bench(b, ShakerSort)
+}
+
 func TestQuickSort(t *testing.T) {
 	test(t, QuickSort)
 }

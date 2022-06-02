@@ -10,6 +10,10 @@ func BubbleSort(a []int) {
 	}
 }
 
+func ShakerSort(a []int) {
+
+}
+
 func QuickSort(a []int) {
 	left := 0
 	right := len(a) - 1
