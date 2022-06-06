@@ -11,7 +11,28 @@ func BubbleSort(a []int) {
 }
 
 func ShakerSort(a []int) {
+	left := 0
+	right := len(a) - 1
+	pivot := 0
 
+	for left < right {
+
+		for i := left; i < right; i++ {
+			if a[i] > a[i+1] {
+				a[i], a[i+1] = a[i+1], a[i]
+				pivot = i
+			}
+		}
+		right = pivot
+
+		for i := right; i > left; i-- {
+			if a[i-1] > a[i] {
+				a[i-1], a[i] = a[i], a[i-1]
+				pivot = i - 1
+			}
+		}
+		left = pivot
+	}
 }
 
 func QuickSort(a []int) {
