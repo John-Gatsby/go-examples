@@ -60,6 +60,14 @@ func BenchmarkShakerSort(b *testing.B) {
 	bench(b, ShakerSort)
 }
 
+func TestSelectSort(t *testing.T) {
+	test(t, SelectSort)
+}
+
+func BenchmarkSelectSort(b *testing.B) {
+	bench(b, SelectSort)
+}
+
 func TestQuickSort(t *testing.T) {
 	test(t, QuickSort)
 }
