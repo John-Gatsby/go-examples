@@ -36,7 +36,15 @@ func ShakerSort(a []int) {
 }
 
 func SelectSort(a []int) {
-
+	for i := len(a) - 1; i > 1; i-- {
+		max := i
+		for j := 0; j < i; j++ {
+			if a[j] > a[max] {
+				max = j
+			}
+		}
+		a[i], a[max] = a[max], a[i]
+	}
 }
 
 func QuickSort(a []int) {

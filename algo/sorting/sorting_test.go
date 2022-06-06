@@ -7,7 +7,7 @@ import (
 var ints = [...]int{74, 59, 238, -784, 9845, 959, 905, 0, 0, 42, 7586, -5467984, 7586}
 
 func getUnsorted() []int {
-	unsorted := make([]int, 1<<10)
+	unsorted := make([]int, 1<<12)
 	for i := range unsorted {
 		unsorted[i] = i ^ 0x2cc
 	}
