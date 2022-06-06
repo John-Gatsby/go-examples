@@ -68,6 +68,14 @@ func BenchmarkSelectSort(b *testing.B) {
 	bench(b, SelectSort)
 }
 
+func TestInsertionSort(t *testing.T) {
+	test(t, InsertionSort)
+}
+
+func BenchmarkInsertionSort(b *testing.B) {
+	bench(b, InsertionSort)
+}
+
 func TestQuickSort(t *testing.T) {
 	test(t, QuickSort)
 }
